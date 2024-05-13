@@ -1,0 +1,165 @@
+class Product:
+    supermarket_name = "Oscar Market"
+    def __init__(self, product_ID, product_name, price, manufacturer, weight, expiration_date, year):
+        self.__product_ID = product_ID
+        self.product_name = product_name
+        self.price = price
+        self.manufacturer = manufacturer
+        self.weight = weight
+        self.expiration_date = expiration_date
+        self.year = year
+
+    def print_product_details(self):
+        print(f"Product ID : {self.__product_ID}")
+        print(f"Product Name : {self.product_name}")
+        print(f"Product Price : {self.price}")
+        print(f"Manufacturer : {self.manufacturer}")
+        print(f"Product Weight : {self.weight}")
+        print(f"Expiration Date : {self.expiration_date}")
+        print(f"Year : {self.year}")
+
+class Healthy(Product):
+    def __init__(self, product_ID, product_name, price, manufacturer, weight, expiration_date, year, components, calories=0):
+        super().__init__(product_ID, product_name, price, manufacturer, weight, expiration_date, year)
+        self.calories = calories
+        self.components = components
+
+    def change_calories(self, calories):
+        self.calories = calories
+
+    def compute_total_calories(self):
+        return self.weight * self.calories
+
+    def print_healthyproduct_details(self):
+        self.print_product_details()
+        print(f"Calories: {self.calories}")
+        print(f"Components: {self.components}")
+
+def run_menu():
+    print("Welcome to the Oscar Market Cashier System!")
+    while True:
+        print("\nSelect the sub-system you want to use:")
+        print("1. Product Subsystem")
+        print("2. Healthy Subsystem")
+        print("3. Exit the Oscar Market Cashier System")
+
+        choice = int(input("\nEnter your choice: "))
+        if choice == 1:
+            run_product_subsystem()
+        elif choice == 2:
+            run_healthproduct_subsystem()
+        elif choice == 3:
+            print("\nThank you for using Oscar's Cashier System!\n")
+            break
+        else:
+            print("\nInvalid choice. Please try again.")
+
+def run_product_subsystem():
+    print("\nPRODUCT SUB-SYSTEM")
+    while True:
+        print("\nSelect an option:")
+        print("1. Add new Product")
+        print("2. Display Product Details")
+        print("3. Change/Edit product_ID")
+        print("4. Exit the sub-system")
+
+        choice = int(input("\nEnter your choice: "))
+
+        if choice == 1:
+            product_ID = input("Enter product ID: ")
+            name = input("Enter name: ")
+            price = float(input("Enter price: "))
+            manufacturer = input("Enter manufacturer: ")
+            weight = float(input("Enter weight: "))
+            expiration_date = input("Enter expiration date: ")
+            year = int(input("Enter year: "))
+
+            product = Product(product_ID, name, price, manufacturer, weight, expiration_date, year)
+            print("\nNew product added successfully!")
+
+        elif choice == 2:
+            product.print_product_details()
+
+        elif choice == 3 :
+            product_ID = input("Enter Current ID : ")
+            new_ID = input("Enter New ID : ")
+            if product_ID == product._Product__product_ID  :
+                product._Product__product_ID = new_ID
+                print("\nProduct ID changed successfully!")
+            else:
+                print("\nProduct ID not found.")
+
+        elif choice == 4 :
+            print("\nExiting the product sub-system.")
+            break
+
+        else:
+            print("\nInvalid choice. Please try again.")
+
+def run_healthproduct_subsystem():
+    print("\nHEALTHY SUB-SYSTEM")
+    while True:
+        print("\nSelect an option:")
+        print("1. Add new Healthy Product")
+        print("2. Display Healthy Product Details")
+        print("3. Change/Edit Calories")
+        print("4. Check Calories And Components Of Healthy Product")
+        print("5. Compute Total Calories Of The Healthy Product")
+        print("6. Exit The Sub-System")
+
+        choice = int(input("\nEnter your choice: "))
+
+        if choice == 1:
+            product_ID = input("Enter product ID : ")
+            name = input("Enter name : ")
+            price = float(input("Enter price : "))
+            manufacturer = input("Enter manufacturer : ")
+            weight = float(input("Enter weight : "))
+            expiration_date = input("Enter expiration date : ")
+            year = int(input("Enter year : "))
+            calories = int(input("Enter calories : "))
+            components = input("Enter components (comma-separated) : ").split(",")
+
+            healthy_product = Healthy(product_ID, name, price, manufacturer, weight, expiration_date, year, components, calories)
+
+            print("\nNew healthy product added successfully!")
+        elif choice == 2:
+            healthy_product.print_healthyproduct_details()
+
+        elif choice == 3:
+            product_ID = input("Enter Product ID : ")
+            calories = int(input("Enter New Calories : "))
+            if product_ID == healthy_product._Product__product_ID :
+                healthy_product.change_calories(calories)
+                print("\nCalories changed successfully!")
+            else:
+                print("\nProduct ID not found.")
+
+        elif choice == 4:
+            product_ID = input("Enter the product ID to check calories and components: ")
+
+            if healthy_product._Product__product_ID == product_ID:
+                print(f"\nCalories : {healthy_product.calories}")
+                print(f"Components : {healthy_product.components}")
+            else:
+                print("Product ID not found.\n")
+
+        elif choice == 5:
+            product_ID = input("Enter the product ID to compute total calories : ")
+
+            if healthy_product._Product__product_ID == product_ID:
+                    total_calories = healthy_product.compute_total_calories()
+                    print(f"\nTotal Calories : {total_calories}")
+            else:
+                print("\nProduct ID not found.")
+
+        elif choice == 6:
+            print("\nExiting The Healthy Product Sub-system.")
+            break
+
+        else:
+            print("Invalid choice. Please try again.\n")
+
+run_menu()
+
+
