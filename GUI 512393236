@@ -1,0 +1,88 @@
+from tkinter import *
+from tkinter import messagebox
+
+
+def Plan_Your_Loan():
+    job = str(job_entry.get())
+    loan = int(loan_entry.get())
+    years = int(years_entry.get())
+
+    if years < 1 or years > 7:
+        messagebox.showerror("Error", "Please choose a number of years from 1 to 7")
+        return
+
+    if years == 1:
+        interest = 13.76 / 100
+    elif years == 2:
+        interest = 13.74 / 100
+    elif years == 3:
+        interest = 14.06 / 100
+    elif years == 4:
+        interest = 14.46 / 100
+    elif years == 5:
+        interest = 14.86 / 100
+    elif years == 6:
+        interest = 15.29 / 100
+    elif years == 7:
+        interest = 15.71 / 100
+
+    IPY = loan * interest
+    TI = IPY * years
+    TL = TI + loan
+    months = years * 12
+    PPM = TL / months
+
+    result_label.config(text="Your Loan = {}\nInterest Per Year = {}\nTotal Interest = {}\nTotal Loan = {}\nPay Per Month = {}".format(loan, IPY, TI, TL, PPM))
+
+def clear_fields():
+    loan_entry.delete(0, END)
+    years_entry.delete(0, END)
+    result_label.config(text="")
+
+def exit_program():
+    window.destroy()
+
+window = Tk()
+window.title("Plan Your Loan")
+window.geometry("600x500+500+100")
+
+f1=Frame(window)
+f1.pack(side="top")
+f2=Frame(window)
+f2.pack(side="left")
+f3=Frame(window)
+f3.pack(side="right")
+
+# Banque of Egypt logo
+logo_image = PhotoImage(file="Untitled-1.png", height=200 , width=200)
+logo_label = Label(f1, image=logo_image)
+logo_label.pack()
+
+job_label = Label(f2, text="Job:", font=("Arial", 14, "bold"), padx=20, bg="#862f3b", fg="white")
+job_label.pack()
+job_entry = Entry(f2,border=7, font=("Arial", 12, "bold"))
+job_entry.pack()
+
+loan_label = Label(f2, text="Loan Amount:", font=("Arial", 14, "bold"), bg="#862f3b", fg="white")
+loan_label.pack()
+loan_entry = Entry(f2,border=7, font=("Arial", 12, "bold"))
+loan_entry.pack()
+
+years_label = Label(f2, text="Number of Years (1-7):", font=("Arial", 14, "bold"), bg="#862f3b", fg="white")
+years_label.pack()
+years_entry = Entry(f2,border=7,font=("Arial", 12, "bold"))
+years_entry.pack()
+
+calculate_button = Button(f2, text="Calculate", command=Plan_Your_Loan, font=("Arial", 12, "bold"), fg="#862f3b",border=5,pady=2,padx=25)
+calculate_button.pack()
+
+clear_button = Button(f2, text="Clear", command=clear_fields, font=("Arial", 12, "bold"), fg="#862f3b", border=5,pady=2,padx=28)
+clear_button.pack()
+
+exit_button = Button(f2, text="Exit", command=exit_program, font=("Arial", 12, "bold"), fg="#862f3b", border=5,pady=2,padx=30)
+exit_button.pack()
+
+result_label = Label(f3,font=("Arial", 15, "bold"))
+result_label.pack()
+
+window.mainloop()
